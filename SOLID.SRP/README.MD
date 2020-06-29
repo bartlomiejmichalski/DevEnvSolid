@@ -7,8 +7,8 @@ C# code used to explain how we can fix SRP issues during refactorization based o
 
 There are 3 different phases. 
 * Phase I - On master branch - code without changes. 
-* Phase II - P2 branch - different responsibilities moved to static methods. 
-* Phase II - P3 branch - different responsibilities delegated to separate classes. 
+* Phase II - [P2 branch](https://github.com/bartlomiejmichalski/DevEnvSolid/tree/P2) - different responsibilities moved to static methods. 
+* Phase II - [P3 branch](https://github.com/bartlomiejmichalski/DevEnvSolid/tree/P3) - different responsibilities delegated to separate classes. 
 
 
 # How to run
