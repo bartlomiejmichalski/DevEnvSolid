@@ -5,4 +5,4 @@ Materials connected with Solid series on youtube channel.
 
 # Folder Structure 
 
-1. [Fixing SRP during refactor](SOLID.SRP\README.MD)
+1. [Fixing SRP during refactor](SOLID.SRP/README.MD)
