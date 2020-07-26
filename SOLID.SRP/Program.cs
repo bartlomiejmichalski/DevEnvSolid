@@ -16,8 +16,8 @@ namespace SOLID.SRP
                 Money = 100
             };
             BookingService bookingService = new BookingService();
-            bool isOrderReady = bookingService.CreateOrder(person, Product.MoneyTransfer);
-            Console.WriteLine($"Order completed {isOrderReady}");
+            var personOrder = bookingService.CreateOrder(person, Product.MoneyTransfer);
+            Console.WriteLine($"Order completed");
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace SOLID.SRP
 {
-    internal enum Product
+    public enum Product
     {
         Ticket,
         Newspaper,

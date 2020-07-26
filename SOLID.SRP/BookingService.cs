@@ -1,12 +1,10 @@
 using System;
-using System.IO;
 
 namespace SOLID.SRP
 {
     internal class BookingService
     {
-        private string DirectoryPath = @"E:\Code\DevEnv\SOLID";
-        public bool CreateOrder(Person person, Product product)
+        public PersonOder CreateOrder(Person person, Product product)
         {
             if (person.Age < 18)
             {
@@ -41,28 +39,14 @@ namespace SOLID.SRP
                 Console.WriteLine("Discounts for student: 25%");
             }
 
-            if (person.Money > 0)
+            var order = new PersonOder
             {
-                var order = new PersonOder
-                {
-                    Person = person,
-                    Product = product,
-                    Price = basePrice -  basePrice * (discount / 100.0m)
-                };
-                
-                var date = DateTime.Now;
-                var currentPath = Path.Combine(DirectoryPath, $"{date:yyyy-dd-MM}");
-                if(!Directory.Exists(currentPath))
-                {
-                    Directory.CreateDirectory(currentPath);
-                }
-
-                string orderInfo = $"{order.Person.Id}-{order.Product}-{order.Price}";
-                Console.WriteLine($"Order Info: {orderInfo}");
-                File.WriteAllText(Path.Combine(currentPath, $"{person.Id}.txt"), orderInfo);
-                return true;
-            }
-            return false;
+                Person = person,
+                Product = product,
+                Price = basePrice -  basePrice * (discount / 100.0m),
+                Discount = discount
+            };
+            return order; 
         }
     }
 }

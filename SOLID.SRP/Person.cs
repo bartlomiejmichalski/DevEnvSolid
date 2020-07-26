@@ -1,6 +1,6 @@
 namespace SOLID.SRP
 {
-    internal struct Person
+    public struct Person
     {
         public int Id;
         public string FirstName;
