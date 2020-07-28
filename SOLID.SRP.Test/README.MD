@@ -1,7 +1,7 @@
 # General 
 C# code used to explain how tests can help you with modyfing existing source code. 
 
-[Link to video in Polish](https://www.youtube.com/watch?v=MJ1h2f2VCtY)
+[Link to video in Polish](https://youtu.be/TtVOhaWj1jM)
 
 # How to run
 
