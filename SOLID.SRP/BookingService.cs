@@ -2,7 +2,7 @@ using System;
 
 namespace SOLID.SRP
 {
-    internal class BookingService
+    public class BookingService
     {
         public PersonOder CreateOrder(Person person, Product product)
         {
@@ -28,9 +28,14 @@ namespace SOLID.SRP
             }
 
             int discount = 0;
-            if (person.Age > 65)
+            if (person.Age == 66 && person.IsStudent)
             {
-                discount =  30 + person.Age - 65;
+                discount =  35;
+                Console.WriteLine($"Discounts for old student: 35%");
+            }
+            else if (person.Age > 65)
+            {
+                discount =  32;
                 Console.WriteLine($"Discounts for old: {discount}%");
             }
             else if (person.IsStudent)
