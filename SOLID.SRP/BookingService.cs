@@ -2,8 +2,26 @@ using System;
 
 namespace SOLID.SRP
 {
+    public interface IDisplayer
+    {
+        void WriteLine(string info);
+    }
+    public class InfoDisplayer : IDisplayer
+    {
+        public void WriteLine(string info)
+        {
+            Console.WriteLine(info);
+        }
+    }
     public class BookingService
     {
+        private IDisplayer _displayer;
+
+        public BookingService(IDisplayer displayer)
+        {
+            _displayer = displayer;
+        }
+
         public PersonOder CreateOrder(Person person, Product product)
         {
             if (person.Age < 18)
@@ -31,17 +49,17 @@ namespace SOLID.SRP
             if (person.Age == 66 && person.IsStudent)
             {
                 discount =  35;
-                Console.WriteLine($"Discounts for old student: 35%");
+                _displayer.WriteLine($"Discounts for old student: 35%");
             }
             else if (person.Age > 65)
             {
                 discount =  32;
-                Console.WriteLine($"Discounts for old: {discount}%");
+                _displayer.WriteLine($"Discounts for old: {discount}%");
             }
             else if (person.IsStudent)
             {
                 discount = 25;
-                Console.WriteLine("Discounts for student: 25%");
+                _displayer.WriteLine("Discounts for student: 25%");
             }
 
             var order = new PersonOder

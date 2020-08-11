@@ -15,7 +15,7 @@ namespace SOLID.SRP
                 IsStudent = true,
                 Money = 100
             };
-            BookingService bookingService = new BookingService();
+            BookingService bookingService = new BookingService(new InfoDisplayer());
             var personOrder = bookingService.CreateOrder(person, Product.MoneyTransfer);
             Console.WriteLine($"Order completed");
         }

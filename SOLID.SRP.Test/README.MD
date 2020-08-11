@@ -1,7 +1,7 @@
 # General 
 C# code used to explain how tests can help you with modyfing existing source code. 
 
-[Link to video in Polish](https://www.youtube.com/watch?v=MJ1h2f2VCtY)
+[Link to video in Polish](https://youtu.be/Bh1RrlMu-OE)
 
 # How to run
 
@@ -19,42 +19,64 @@ Order Info: 1-MoneyTransfer-17,250
 Order completed True
 ```
 
-# How to add and run your first test
+# How to test writting to console
 
-1. Create nunit test project. "SOLID.SRP.TEST" is name of project. You can change it into something else. 
+Steam Method
+
+1. Find code that contains writting to console.
 ```
-dotnet new nunit -n "SOLID.SRP.Test"
+Console.WriteLine($"Discounts for old student: 35%"); 
 ```
-2. You should add project to your solution. If you changed name of your project please also change name in below command. 
+2. Extract it to separate method. Static method in this case.
 ```
-dotnet add SOLID.SRP.Test/SOLID.SRP.Test.csproj reference SOLID.SRP/SOLID.SRP.csproj
-```
-3. Run your test. By default there will be single test. You can run it using VS Code or from command line. 
-```
-dotnet test
-```
-4. You should add reference to your test project. Why? Because your tests are in different library than code that you are going to test. 
-```
-dotnet sln add SOLID.SRP.Test/SOLID.SRP.Test.csproj
-```
-Now you can create code like this in your tests:
-```
-    Person person = new Person
+    public static void WriteLine(string info)
     {
-        Id = 1, 
-        FirstName = "",
-        LastName = "",
-        Age = 66,
-        IsStudent = true,
-        Money = 100
-    };
-    BookingService bookingService = new BookingService();
-    PersonOder personOder = bookingService.CreateOrde(person, Product.MoneyTransfer);
+        Console.WriteLine(info);
+    }
 ```
-
-
-
-
+3. Create class and move method to it. 
+```
+    public class InfoDisplayer : IDisplayer
+    {
+        public void WriteLine(string info)
+        {
+        }
+    }
+```
+4. Pass it through constructor that you will create. It should contain single parameter. 
+  ```
+    public BookingService(InfoDisplayer displayer)
+    {
+        _displayer = displayer;
+    }
+  ```  
+5. Create interface which single method. This method should have same signature: returned type, name and parameter list. 
+```
+    public interface IDisplayer
+    {
+        void WriteLine(string info);
+    }
+```    
+6. Your class should implment this interface.
+```
+public class InfoDisplayer : IDisplayer
+```
+7. Change parameter type in our `BookingService.cs` class to interface. 
+  ```
+    public BookingService(IDisplayer displayer)
+    {
+        _displayer = displayer;
+    }
+  ```  
+8. Change all 4 occurrences of `BookingService` constructor calls. 
+9. Create test class `TestDisplayer` that implements `IDisplayer` it will be used in tests.
+```
+public class TestDisplayer : IDisplayer
+```
+10. Create method that will check if proper string was passed as argument to method in our test class. 
+```
+     Assert.IsTrue(testDisplayer.WasDisplayed("Discounts for student: 25%"));
+```
 
 
 

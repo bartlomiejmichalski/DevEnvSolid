@@ -6,10 +6,40 @@ namespace SOLID.SRP.Test
     // Dla studentów zniżka 25%
     public class BookingServiceTests
     {
+        public class TestDisplayer : IDisplayer
+        {
+            private string _previousInfo;
+            public void WriteLine(string info)
+            {
+                _previousInfo = info;
+            }   
+            public bool WasDisplayed(string info)             
+            {
+                return _previousInfo == info;
+            }
+        }
+
+        [Test]
+        public void ShouldDisplayInformationForStudent()
+        {
+            TestDisplayer testDisplayer = new TestDisplayer();
+            BookingService bookingService = new BookingService(testDisplayer);
+            Person person = new Person
+            {
+                Id = 1, 
+                FirstName = "",
+                LastName = "",
+                Age = 18,
+                IsStudent = true,
+                Money = 100
+            };
+            PersonOder personOder = bookingService.CreateOrder(person, Product.MoneyTransfer);
+            Assert.IsTrue(testDisplayer.WasDisplayed("Discounts for student: 25%"));
+        }
         [Test]
         public void ShouldReturn25ForStudent()
         {
-            BookingService bookingService = new BookingService();
+            BookingService bookingService = new BookingService(new InfoDisplayer());
             Person person = new Person
             {
                 Id = 1, 
@@ -22,10 +52,11 @@ namespace SOLID.SRP.Test
             PersonOder personOder = bookingService.CreateOrder(person, Product.MoneyTransfer);
             Assert.AreEqual(25, personOder.Discount);
         }
-            [Test]
+        
+        [Test]
         public void ShouldReturn32ForAge67()
         {
-            BookingService bookingService = new BookingService();
+            BookingService bookingService = new BookingService(new InfoDisplayer());
             Person person = new Person
             {
                 Id = 1, 
@@ -42,7 +73,7 @@ namespace SOLID.SRP.Test
         [Test]
         public void ShouldReturn35ForAge66AndIsStudent()
         {
-            BookingService bookingService = new BookingService();
+            BookingService bookingService = new BookingService(new InfoDisplayer());
             Person person = new Person
             {
                 Id = 1, 
