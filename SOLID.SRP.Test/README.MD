@@ -19,64 +19,11 @@ Order Info: 1-MoneyTransfer-17,250
 Order completed True
 ```
 
-# How to test writting to console
+# Lessons List
 
-Steam Method
+1. [Adding test to legacy project](L1.README.MD)
+2. [Using Seam refactorization to test external class](L2.README.MD)
 
-1. Find code that contains writting to console.
-```
-Console.WriteLine($"Discounts for old student: 35%"); 
-```
-2. Extract it to separate method. Static method in this case.
-```
-    public static void WriteLine(string info)
-    {
-        Console.WriteLine(info);
-    }
-```
-3. Create class and move method to it. 
-```
-    public class InfoDisplayer : IDisplayer
-    {
-        public void WriteLine(string info)
-        {
-        }
-    }
-```
-4. Pass it through constructor that you will create. It should contain single parameter. 
-  ```
-    public BookingService(InfoDisplayer displayer)
-    {
-        _displayer = displayer;
-    }
-  ```  
-5. Create interface which single method. This method should have same signature: returned type, name and parameter list. 
-```
-    public interface IDisplayer
-    {
-        void WriteLine(string info);
-    }
-```    
-6. Your class should implment this interface.
-```
-public class InfoDisplayer : IDisplayer
-```
-7. Change parameter type in our `BookingService.cs` class to interface. 
-  ```
-    public BookingService(IDisplayer displayer)
-    {
-        _displayer = displayer;
-    }
-  ```  
-8. Change all 4 occurrences of `BookingService` constructor calls. 
-9. Create test class `TestDisplayer` that implements `IDisplayer` it will be used in tests.
-```
-public class TestDisplayer : IDisplayer
-```
-10. Create method that will check if proper string was passed as argument to method in our test class. 
-```
-     Assert.IsTrue(testDisplayer.WasDisplayed("Discounts for student: 25%"));
-```
-
-
-
+# Youtube Playlist in Polish
+1. [Adding test to legacy project](https://www.youtube.com/watch?v=MJ1h2f2VCtY)
+2. [Using Seam refactorization to test external class](https://youtu.be/Bh1RrlMu-OE)

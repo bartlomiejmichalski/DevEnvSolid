@@ -6,3 +6,4 @@ Materials connected with Solid series on youtube channel.
 # Folder Structure 
 
 1. [Fixing SRP during refactor](SOLID.SRP/README.MD)
+2. [How to use tests in legacy project](SOLID.SRP>TEST/README.MD)
